@@ -1,11 +1,18 @@
-export interface Post {
-    /**
-     * Идентификатор поста
-     */
-    id:string;
-    text:string;
-    authorId:string;
-    createdAt:number;
-}
+import { z } from "zod";
 
-export type PostList = Post[];
+const PostShema = z.object({
+    id: z.string(),
+    text: z.string(),
+    authorId: z.string(),
+    created: z.string(),
+});
+
+export type Post = z.infer<typeof PostShema>;
+
+export const PostList = z.array(PostShema);
+
+export type PostList = z.infer<typeof PostList>
+
+function fetchPostlist(): Promise {
+    return fetch("/api/posts");
+}
