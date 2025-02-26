@@ -17,7 +17,7 @@ export type PostList = z.infer<typeof PostList>
 
 export const FetchPostListSchema = z.object({
     list: PostList,
-})
+});
 
 type FetchPostListResponse = z.infer<typeof FetchPostListSchema>;
 
@@ -28,7 +28,7 @@ export function fetchPostlist(): Promise<FetchPostListResponse> {
 }
 
 interface IdleRequestState {
-status: "idle;"
+status: "idle";
 }
 
 interface LoadingRequestState {
