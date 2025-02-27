@@ -6,7 +6,7 @@ const PostSchema = z.object({
     id: z.string(),
     text: z.string(),
     authorId: z.string(),
-    created: z.string(),
+    createdAt: z.number(),
 });
 
 export type Post = z.infer<typeof PostSchema>;
