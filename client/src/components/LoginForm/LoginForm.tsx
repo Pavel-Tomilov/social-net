@@ -1,12 +1,20 @@
 import { FC, FormEventHandler, useState } from 'react';
-
+import {login} from '../../api/User'
+import { useMutation } from '@tanstack/react-query';
 import { FormField } from '../FormField';
 import { Button } from '../Button';
 import './LoginForm.css';
+import { queryClient } from '../../api/queryClients';
 
 export const LoginForm: FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+const loginMutation = useMutation({
+  mutationFn: () => login(username, password)
+},
+queryClient
+);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -32,7 +40,9 @@ export const LoginForm: FC = () => {
         />
       </FormField>
 
-      <Button type="submit" title="Войти" />
+      {loginMutation.error && <span>{loginMutation.error.message}</span>}
+
+      <Button type="submit" title="Войти" isLoading= {loginMutation.isPending}/>
     </form>
   );
 };
