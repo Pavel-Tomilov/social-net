@@ -1,5 +1,5 @@
 import { z } from 'zod'
-
+import { validateResponse } from './validateResponse';
 
 export const UserSchema =z.object({
     id: z.string(),
@@ -25,12 +25,7 @@ export function registerUser(username: string, password: string): Promise<void> 
     }).then(() => undefined);
 }
 
-async function validateResponse(response: Response): Promise<Response> {
-    if(!response.ok) {
-        throw new Error(await response.text());
-    }
-    return response;
-}
+
 
 export function login(username: string, password: string): Promise<void> {
     return fetch("/api/login", {
@@ -43,4 +38,11 @@ export function login(username: string, password: string): Promise<void> {
     })
     .then(validateResponse)
     .then(() => undefined);
+}
+
+export function fetchMe():Promise<User> {
+return fetch("/api/users/me")// uses по видео
+.then(validateResponse)
+.then((response) => response.json())
+.then((data) => UserSchema.parse(data));
 }
