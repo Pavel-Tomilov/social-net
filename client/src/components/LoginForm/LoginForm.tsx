@@ -11,7 +11,10 @@ export const LoginForm: FC = () => {
   const [password, setPassword] = useState('');
 
 const loginMutation = useMutation({
-  mutationFn: () => login(username, password)
+  mutationFn: () => login(username, password),
+  onSuccess() {
+    queryClient.invalidateQueries({ queryKey: ["users", "me"]})
+  }
 },
 queryClient
 );

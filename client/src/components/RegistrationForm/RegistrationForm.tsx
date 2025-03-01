@@ -14,7 +14,8 @@ export const RegistrationForm: FC = () => {
     mutationFn: () => registerUser(username, password),
 
   },
-queryClient)
+queryClient
+)
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();

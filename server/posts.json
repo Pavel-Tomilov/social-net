@@ -22,5 +22,11 @@
     "text": "А ты как?",
     "authorId": "df7182dd-b3c6-46cf-9133-f922f988c75d",
     "createdAt": 1704901870088
+  },
+  "4362ab5a-901a-4d60-8ba5-ca0a77c738c8": {
+    "id": "4362ab5a-901a-4d60-8ba5-ca0a77c738c8",
+    "text": "всем привет",
+    "authorId": "56ba3d01-3a7a-4fa6-a251-18694fd332ea",
+    "createdAt": 1740849448073
   }
 }

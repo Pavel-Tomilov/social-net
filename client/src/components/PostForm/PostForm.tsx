@@ -5,18 +5,24 @@ import { FormField } from '../FormField';
 import './PostForm.css';
 import { useMutation } from '@tanstack/react-query';
 import { createPost } from '../../api/Post';
+import { queryClient } from '../../api/queryClients';
 
 export interface IPostFormProps {}
 
 export const PostForm: FC<IPostFormProps> = () => {
 const [text, setText] = useState("");
 
-useMutation({
-  mutationFn: () => createPost(text)
-})
+const createPostMutation = useMutation({
+  mutationFn: () => createPost(text),
+  onSuccess() {queryClient.invalidateQueries({ queryKey: ["posts"] })}
+},
+queryClient
+);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+
+    createPostMutation.mutate();
   };
 
   return (
@@ -27,7 +33,7 @@ useMutation({
         onChange={(event) => setText(event.currentTarget.value)}/>
       </FormField>
 
-      <Button type="submit" title="Опубликовать" />
+      <Button type="submit" title="Опубликовать" isLoading={createPostMutation.isPending}/>
     </form>
   );
 };
