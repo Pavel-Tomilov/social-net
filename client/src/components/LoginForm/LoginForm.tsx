@@ -21,6 +21,7 @@ queryClient
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+    loginMutation.mutate();
   };
 
   return (
